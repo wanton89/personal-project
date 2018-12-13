@@ -1,0 +1,35 @@
+.header {
+  color: white;
+  text-align: center;
+  font-family: 'ZCOOL XiaoWei', serif;
+}
+
+p.header {
+  font-family: https://www.behance.net/gallery/14209843/SIMPLIFICA-Typeface-Free;
+  font-size: 20px;
+  background-color: blue;
+}
+
+.background {
+  background: url("bg.jpg");
+  position: relative;
+}
+
+.layer {
+  background-color: blue;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.posts {
+  color: white;
+  background-color: #fff;
+  background: rgba(46, 51, 56, 0.5)!important;
+}
+
+.posts h6 {
+  padding-left:3em;
+}
