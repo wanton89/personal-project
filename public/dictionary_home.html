@@ -1,12 +1,11 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Personal Project Site v0.1</title>
   <meta charset="utf-8">
   <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
   <script>
-    // Initialize Firebase
-    var config = {
+    const config = {
       apiKey: "AIzaSyDIuCXNFC43rC8omAPL8ORbFe58pTf-EA4",
       authDomain: "test-website-9f50c.firebaseapp.com",
       databaseURL: "https://test-website-9f50c.firebaseio.com",
@@ -16,66 +15,18 @@
     };
     firebase.initializeApp(config);
   </script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css?family=ZCOOL+XiaoWei" rel="stylesheet"> 
 </head>
-<body class="col-md-12 background">
-  
-   <div class="col-md-12 header">
-    <h1>Personal Project Site</h1>
-    <p>(c) Audric 2018</p>
-  </div>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>    
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Projects
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Latest Updates</a>
-          <a class="dropdown-item" href="#">All Project</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dictionary
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Categories</a>
-          <a class="dropdown-item" href="dictionary_home.html">Show All</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Search</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-  <div class="row">
-    <div class="py-3 offset-md-2 col-md-8">
-      <div class="py-1 px-3 posts">
-        <pre id="object"></pre>
-        <script src="app.js"></script>
-    </div>
-  </div>
-
-
+<body>
+    <script>
+         console.log("hello");
+    </script>
+    <script>
+    var database = firebase.database().refFromURL('https://test-website-9f50c.firebaseio.com');
+    database.once('value')
+        .then(function(snapshot) {
+          var a = snapshot.exists();
+          console.log(a);
+    });
+    </script>
 </body>
 </html> 
