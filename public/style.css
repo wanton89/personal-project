@@ -1,3 +1,7 @@
+body, html {
+  height: 100%;
+}
+
 .header {
   color: white;
   text-align: center;
@@ -12,6 +16,10 @@ p.header {
 .background {
   background-color: blue;
   background: url("bg.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .posts {
