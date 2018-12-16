@@ -20,12 +20,17 @@
     <script>
          console.log("hello");
     </script>
+    <p>hello</p>
+    <p id="js_output"></p>
     <script>
-    var database = firebase.database().refFromURL('https://test-website-9f50c.firebaseio.com');
+    var output_object = document.getElementById('js_output');
+    var database = firebase.database().ref().child('tests');
     database.once('value')
         .then(function(snapshot) {
-          var a = snapshot.exists();
-          console.log(a);
+          console.log(snapshot.val());
+    });
+    database.on('value', snap => {
+        output_object.innerText = JSON.stringify(snap.val(), null, 3);
     });
     </script>
 </body>
