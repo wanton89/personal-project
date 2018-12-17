@@ -31,3 +31,7 @@ p.header {
 .posts h6 {
   padding-left:2em;
 }
+
+.table td th {
+  text-align: center;
+}
