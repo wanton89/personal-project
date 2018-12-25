@@ -102,11 +102,11 @@
         }
     });
 
-    database.set({
-        Date: '12/25/2018',
-        Word: 'Sin ne kuai lok',
-        Meaning: 'Happy New Year',
-        Tags: 'greeting, event'
+    database.ref('tests/'+ 'Entry'+ Math.floor((Math.random() * 10) + 1)).set({
+        "Date": "12/25/2018",
+        "Word": "peng yu",
+        "Meaning": "Friend",
+        "Tags": "basic"
     });
     </script>
   </div>
