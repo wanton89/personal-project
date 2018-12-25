@@ -70,10 +70,10 @@
 </nav>
 
   <div class="py-3 offset-md-2 col-md-8"> 
-    <div class="posts"> 
+    <div class="posts mx-auto"> 
     <table style="width:100% text-align:center" border="1" id="ex-table" >
       <tr id="tr">
-        <th class="col-md-1 center">Date:</th>
+        <th class="col-md-1 mx-auto">Date:</th>
         <th class="col-md-1 center">Word:</th>
         <th class="col-md-1 center">Meaning:</th> 
         <th class="col-md-1">Tags:</th>
@@ -83,7 +83,7 @@
     var database = firebase.database().ref().child('tests');
     database.once('value')
         .then(function(snapshot) {
-          console.log(snapshot.val());
+          console.log('snapshot: ' + snapshot.val());
     });
 
     database.once('value', function(snapshot){
@@ -101,13 +101,17 @@
             $('#ex-table').append(content);
         }
     });
-
-    database.ref('tests/'+ 'Entry'+ Math.floor((Math.random() * 10) + 1)).set({
-        "Date": "12/25/2018",
-        "Word": "peng yu",
-        "Meaning": "Friend",
-        "Tags": "basic"
-    });
+    var random_num = Math.floor((Math.random() * 10) + 1);
+    var tmp_id = "Entry" + random_num;
+    var entry_id = {
+        "Date": "12/26/2018",
+        "Word": "khua mai",
+        "Meaning": "take a look",
+        "Tags": "verb"
+        };
+    console.log(entry_id);
+    console.log($('#entry_id'));
+    database.push(entry_id);
     </script>
   </div>
   </div>
