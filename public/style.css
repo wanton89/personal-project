@@ -15,10 +15,10 @@ p.header {
 
 .background {
   background-color: blue;
-  background: url("bg.jpg");
+  background-image: url("bg.jpg");
   height: 100%;
-  background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: cover;
 }
 

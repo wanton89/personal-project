@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Personal Project Site v0.1</title>
+  <title>Personal Project Site v0.2</title>
   <meta charset="utf-8">
   <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
   <script>
@@ -58,6 +58,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Categories</a>
           <a class="dropdown-item" href="dictionary_home.html">Show All</a>
+          <a class="dropdown-item" href="dictionary_add_entry.html">Add Entry</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Search</a>
         </div>
@@ -101,17 +102,6 @@
             $('#ex-table').append(content);
         }
     });
-    var random_num = Math.floor((Math.random() * 10) + 1);
-    var tmp_id = "Entry" + random_num;
-    var entry_id = {
-        "Date": "12/26/2018",
-        "Word": "khua mai",
-        "Meaning": "take a look",
-        "Tags": "verb"
-        };
-    console.log(entry_id);
-    console.log($('#entry_id'));
-    database.push(entry_id);
     </script>
   </div>
   </div>

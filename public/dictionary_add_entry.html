@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Personal Project Site v0.2</title>
@@ -21,8 +21,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css?family=ZCOOL+XiaoWei" rel="stylesheet"> 
+
 </head>
 <body class="col-md-12 background">
   
@@ -69,23 +70,70 @@
   </div>
 </nav>
 
-  <div class="row">
-    <div class="py-3 offset-md-2 col-md-8">
-      <div class="py-1 px-3 posts">
-        <h2 class="text-justify">Updates</h2>
-        <h6>V0.2<br>
-	    Added Dictionary Database<br>
-	    Users will be able to add database entries in the dictionary<br>
-	    Able to display all dictionary entries in 'Show All' page
-	</h6> 
-	<h6>V0.1 Personal project site<br>
-            Deployed on <a href="https://test-website-9f50c.firebaseapp.com/">Firebase</a><br>
-            Repository on Github: <a href="https://github.com/wanton89/personal-project">personal-project</a><br>
-            Jenkins on <a href="localhost:8080">localhost</a>
-        </h6>
-    </div>
+    <div class="py-2 col-md-8 mx-auto"> 
+        <div class="posts">
+            <div class="py-3">
+                <h3 style="text-align:center">Add Entry to dictionary</h3>
+            </div>
+            <form>
+            <div class="form-group row mx-auto">
+                <label for="inputWord" class="col-xs-2 col-md-4 col-lg-1 mx-4 col-form-label-lg">Word</label> 
+                <input type="text" class="form-control col-sm-4 mx-3" id="inputWord" aria-describedby="wordHelp" placeholder="Enter word">
+                <small id="wordHelp" class="form-text text-muted col-sm-4">Word help placeholder</small>
+            </div>
+            <div class="form-group row mx-auto">
+                <label for="inputMeaning" class="col-xs-2 col-md-4 col-lg-1 mx-4 col-form-label-lg">Meaning</label>
+                <input type="text" class="form-control col-sm-4 mx-3" id="inputMeaning" placeholder="Meaning">
+            </div>
+
+            <div class="form-group row mx-auto">
+                <label for="inputTag" class="col-xs-2  col-md-4 col-lg-1 mx-4 col-form-label-lg">Tags</label>
+                <input type="text" class="form-control col-sm-4 mx-3" id="inputTag" aria-describedby="tagHelp" placeholder="Tags">
+                <small id="tagHelp" class="form-text text-muted col-sm-4">Comma separated</small>
+            </div>
+            <div class="form-group px-3 py-3">
+                <input type="button" onclick="myFunction()" value="Submit">
+            </div>
+            </form>
+
+            <script>
+            function myFunction() {
+                var database = firebase.database().ref().child('tests');
+                console.log('hello');
+                var word = document.getElementById("inputWord").value;
+                console.log(word);
+                var meaning = document.getElementById("inputMeaning").value;
+                console.log(meaning);
+                var tag = document.getElementById("inputTag").value;
+                console.log(tag);
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth()+1; //January is 0!
+                var yyyy = today.getFullYear();
+
+                if(dd<10) {
+                    dd = '0'+dd
+                } 
+
+                if(mm<10) {
+                    mm = '0'+mm
+                } 
+
+                today = mm + '/' + dd + '/' + yyyy;
+
+                console.log(today);
+
+                var entry_id = {
+                    "Date": today,
+                    "Word": word,
+                    "Meaning": meaning,
+                    "Tags": tag
+                    };
+                console.log(entry_id);
+                database.push(entry_id);
+          }
+          </script>
   </div>
-
-
+  </div>
 </body>
 </html> 
