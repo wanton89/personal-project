@@ -35,3 +35,9 @@ p.header {
 .table td th {
   text-align: center;
 }
+
+.suggestions {
+    width:100%;
+    text-align:center;
+    border:1; 
+}
