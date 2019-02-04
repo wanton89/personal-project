@@ -2,7 +2,6 @@
 <html lang="en">
     <head>
         <title>Personal Project Site v0.2</title>
-        <meta charset="utf-8">
         <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
         <script>
         // Initialize Firebase
@@ -16,17 +15,17 @@
             };
             firebase.initializeApp(config);
         </script>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="style.css">
         <link href="https://fonts.googleapis.com/css?family=ZCOOL+XiaoWei" rel="stylesheet">
         <script>
             function ClearForm()
             {
-                document.getElementById("testing").reset();
+                document.getElementById("entryForm").reset();
                 document.getElementById("search-bar").reset();
             }
         </script>
@@ -43,6 +42,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -77,38 +77,37 @@
         </nav>
 
         <div>
-            <form id="search-bar" class="search-form">
+            <form id="search-bar" class="search-form mx-auto">
                 <input type="text" class="search" placeholder="Search words, meaning or tags">
             </form>
 
-            <button id="myBtn">Add Entry</button>
+            <button id="modalButton">Add Entry</button>
 
         </div>
 
-        <div id="myModal" class="modal">
-            <!-- Modal content -->
+        <div id="modalDiv" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <form id="testing">
-                <div id="myform" class="form-group row mx-auto">
-                    <label for="inputWord" class="col-xs-2 col-md-4 col-lg-1 mx-4 col-form-label-lg">Word</label>
-                    <input type="text" class="form-control col-sm-4 mx-3" id="inputWord" aria-describedby="wordHelp" placeholder="Enter word">
-                    <small id="wordHelp" class="form-text text-muted col-sm-4">Word help placeholder</small>
-                </div>
-                <div class="form-group row mx-auto">
-                    <label for="inputMeaning" class="col-xs-2 col-md-4 col-lg-1 mx-4 col-form-label-lg">Meaning</label>
-                    <input type="text" class="form-control col-sm-4 mx-3" id="inputMeaning" placeholder="Meaning">
-                </div>
+                <form id="entryForm">
+                    <div id="myform" class="form-group row mx-auto">
+                        <label for="inputWord" class="col-xs-2 col-md-4 col-lg-1 mx-4 col-form-label-lg">Word</label>
+                        <input type="text" class="form-control col-sm-4 mx-3" id="inputWord" aria-describedby="wordHelp" placeholder="Fookien word">
+                    </div>
 
-                <div class="form-group row mx-auto">
-                    <label for="inputTag" class="col-xs-2  col-md-4 col-lg-1 mx-4 col-form-label-lg">Tags</label>
-                    <input type="text" class="form-control col-sm-4 mx-3" id="inputTag" aria-describedby="tagHelp" placeholder="Tags">
-                    <small id="tagHelp" class="form-text text-muted col-sm-4">Comma separated</small>
-                </div>
-                <div class="form-group px-3 py-3">
-                    <input id="submit" type="button" onclick="myFunction()" value="Submit">
-                    <input type="reset" value="Reset">
-                </div>
+                    <div class="form-group row mx-auto">
+                        <label for="inputMeaning" class="col-xs-2 col-md-4 col-lg-1 mx-4 col-form-label-lg">Meaning</label>
+                        <input type="text" class="form-control col-sm-4 mx-3" id="inputMeaning" placeholder="English meaning">
+                    </div>
+
+                    <div class="form-group row mx-auto">
+                        <label for="inputTag" class="col-xs-2  col-md-4 col-lg-1 mx-4 col-form-label-lg">Tags</label>
+                        <input type="text" class="form-control col-sm-4 mx-3" id="inputTag" aria-describedby="tagHelp" placeholder="Tags or quick description">
+                        <small id="tagHelp" class="form-text text-muted col-sm-4">Comma separated</small>
+                    </div>
+                    <div class="form-group px-3 py-3">
+                        <input id="submit" type="button" value="Submit">
+                        <input type="reset" value="Reset">
+                    </div>
                 </form>
             </div>
         </div>
@@ -130,6 +129,7 @@
             var entries = [];
             var database = firebase.database().ref('tests');
             loadDatabase();
+
             function loadDatabase()
             {
                 entries = [];
@@ -137,29 +137,25 @@
                 {
                     if(snapshot.exists())
                     {
-                        snapshot.forEach(data =>
-                        {
-                            entries.push(data.val());
-                        });
-                        initialDisplay();
+                        snapshot.forEach(data => {entries.push(data.val())});
+                        writeTable(entries);
                     }
                 });
             }
 
-            function initialDisplay()
+            function writeTable(displayList)
             {
-                var count = entries.length
-                var content = ''
-                for (var entry =0; entry < count; entry++)
+                var count = displayList.length;
+                var content = '';
+                for (var entry = 0; entry < count; entry++)
                 {
-                    content += '<tr>';
-                    content += '<td>' + entries[entry].Date + '</td>';
-                    content += '<td>' + entries[entry].Word + '</td>';
-                    content += '<td>' + entries[entry].Meaning + '</td>';
-                    content += '<td>' + entries[entry].Tags + '</td>';
-                    content += '</tr>';
+                    content += `<tr>
+                                <td>${displayList[entry].Date}</td>
+                                <td>${displayList[entry].Word}</td>
+                                <td>${displayList[entry].Meaning}</td>
+                                <td>${displayList[entry].Tags}</td>
+                                </tr>`;
                 }
-                console.log(content);
                 suggestions.innerHTML = content;
             }
 
@@ -168,7 +164,6 @@
                 return entries.filter(entry =>
                 {
                     const regex = new RegExp(wordToMatch, 'gi');
-                    console.log(wordToMatch);
                     return entry.Word.match(regex) || entry.Meaning.match(regex) || entry.Tags.match(regex);
                 });
             }
@@ -176,20 +171,7 @@
             function displayMatches()
             {
                 var asd = wordMatch(this.value, entries);
-                console.log(this.value);
-                console.log(asd)
-                var count = asd.length
-                var content = ''
-                for (var entry = 0; entry < count; entry++)
-                {
-                    content += '<tr>';
-                    content += '<td>' + asd[entry].Date + '</td>';
-                    content += '<td>' + asd[entry].Word + '</td>';
-                    content += '<td>' + asd[entry].Meaning + '</td>';
-                    content += '<td>' + asd[entry].Tags + '</td>';
-                    content += '</tr>';
-                }
-                suggestions.innerHTML = content;
+                writeTable(asd)
             }
             const searchInput = document.querySelector('.search');
             const suggestions = document.querySelector('.testClass');
@@ -197,16 +179,13 @@
             searchInput.addEventListener('change', displayMatches);
             searchInput.addEventListener('keyup', displayMatches);
 
-            var modal = document.getElementById('myModal');
-            // Get the button that opens the modal
-            var btn = document.getElementById("myBtn");
-            // Get the <span> element that closes the modal
+            var modal = document.getElementById('modalDiv');
+            var btn = document.getElementById("modalButton");
             var span = document.getElementsByClassName("close")[0];
-            // When the user clicks on the button, open the modal
             var submit = document.getElementById("submit");
             submit.onclick = function() {
                 modal.style.display = "none";
-                myFunction();
+                pushToDatabase();
             }
 
             btn.onclick = function() {
@@ -222,15 +201,9 @@
                 modal.style.display = "none";
                 }
             }
-            function myFunction() {
-                var database = firebase.database().ref().child('tests');
-                console.log('hello');
-                var word = document.getElementById("inputWord").value;
-                console.log(word);
-                var meaning = document.getElementById("inputMeaning").value;
-                console.log(meaning);
-                var tag = document.getElementById("inputTag").value;
-                console.log(tag);
+
+            function getDate()
+            {
                 var today = new Date();
                 var dd = today.getDate();
                 var mm = today.getMonth()+1; //January is 0!
@@ -244,21 +217,32 @@
                     mm = '0'+mm
                 }
 
-                today = mm + '/' + dd + '/' + yyyy;
+                return mm + '/' + dd + '/' + yyyy;
+            }
 
-                console.log(today);
+            function resetEntryForm()
+            {
+                var formId = document.getElementById("entryForm");
+                formId.reset();
+                loadDatabase();
+            }
 
-                var entry_id = {
+            function pushToDatabase() {
+                var word = document.getElementById("inputWord").value;
+                var meaning = document.getElementById("inputMeaning").value;
+                var tag = document.getElementById("inputTag").value;
+                var today = getDate();
+
+                var entry_id =
+                {
                     "Date": today,
                     "Word": word,
                     "Meaning": meaning,
                     "Tags": tag
-                    };
-                console.log(entry_id);
+                };
+
                 database.push(entry_id);
-                var testin = document.getElementById("testing");
-                testin.reset();
-                loadDatabase();
+                resetEntryForm();
             }
         </script>
     </body>
