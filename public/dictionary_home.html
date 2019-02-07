@@ -76,13 +76,11 @@
             </div>
         </nav>
 
-        <div>
-            <form id="search-bar" class="search-form mx-auto">
+        <div class="row py-3 offset-md-2 col-md-8">
+            <button id="modalButton" class="entry-button">Add Entry</button>
+            <form id="search-bar" class="search-form col-8 col-sm-8 col-md-8 col-lg-9">
                 <input type="text" class="search" placeholder="Search words, meaning or tags">
             </form>
-
-            <button id="modalButton">Add Entry</button>
-
         </div>
 
         <div id="modalDiv" class="modal">
@@ -90,18 +88,18 @@
                 <span class="close">&times;</span>
                 <form id="entryForm">
                     <div id="myform" class="form-group row mx-auto">
-                        <label for="inputWord" class="col-xs-2 col-md-4 col-lg-1 mx-4 col-form-label-lg">Word</label>
-                        <input type="text" class="form-control col-sm-4 mx-3" id="inputWord" aria-describedby="wordHelp" placeholder="Fookien word">
+                        <label for="inputWord" class="col-xs-2 col-md-4 col-lg-1 col-form-label-lg">Word</label>
+                        <input type="text" class="form-control offset-sm-1 col-sm-4 col-md-6 col-lg-9" id="inputWord" aria-describedby="wordHelp" placeholder="Fookien word">
                     </div>
 
                     <div class="form-group row mx-auto">
-                        <label for="inputMeaning" class="col-xs-2 col-md-4 col-lg-1 mx-4 col-form-label-lg">Meaning</label>
-                        <input type="text" class="form-control col-sm-4 mx-3" id="inputMeaning" placeholder="English meaning">
+                        <label for="inputMeaning" class="col-xs-2 col-md-4 col-lg-1 col-form-label-lg">Meaning</label>
+                        <input type="text" class="form-control offset-sm-1 col-sm-4 col-md-6 col-lg-9" id="inputMeaning" placeholder="English meaning">
                     </div>
 
                     <div class="form-group row mx-auto">
-                        <label for="inputTag" class="col-xs-2  col-md-4 col-lg-1 mx-4 col-form-label-lg">Tags</label>
-                        <input type="text" class="form-control col-sm-4 mx-3" id="inputTag" aria-describedby="tagHelp" placeholder="Tags or quick description">
+                        <label for="inputTag" class="col-xs-2  col-md-4 col-lg-1 col-form-label-lg">Tags</label>
+                        <input type="text" class="form-control offset-sm-1 col-sm-4 col-md-6 col-lg-9" id="inputTag" aria-describedby="tagHelp" placeholder="Tags or quick description">
                         <small id="tagHelp" class="form-text text-muted col-sm-4">Comma separated</small>
                     </div>
                     <div class="form-group px-3 py-3">
@@ -116,10 +114,10 @@
             <div class="posts mx-auto">
                 <table class="suggestions" id="ex-table" >
                     <thead>
-                        <th class="col-md-1 center">Date:</th>
-                        <th class="col-md-1 center">Word:</th>
-                        <th class="col-md-1 center">Meaning:</th>
-                        <th class="col-md-1">Tags:</th>
+                        <th class="col-sm-1 col-md-1 center">Date:</th>
+                        <th class="col-sm-1 col-md-1 center">Word:</th>
+                        <th class="col-sm-1 col-md-1 center">Meaning:</th>
+                        <th class="col-sm-1 col-md-1">Tags:</th>
                     </thead>
                     <tbody class="testClass"></tbody>
                 </table>
