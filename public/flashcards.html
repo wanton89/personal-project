@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Personal Project Site v0.2</title>
+        <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+        <script>
+        // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyDIuCXNFC43rC8omAPL8ORbFe58pTf-EA4",
+                authDomain: "test-website-9f50c.firebaseapp.com",
+                databaseURL: "https://test-website-9f50c.firebaseio.com",
+                projectId: "test-website-9f50c",
+                storageBucket: "test-website-9f50c.appspot.com",
+                messagingSenderId: "237961882101"
+            };
+            firebase.initializeApp(config);
+        </script>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css?family=ZCOOL+XiaoWei" rel="stylesheet">
+        <script>
+            function ClearForm()
+            {
+                document.getElementById("search-bar").reset();
+            }
+        </script>
+    </head>
+    <body onload="ClearForm()" class="col-md-12 background">
+
+        <div class="col-md-12 header">
+            <h1>Personal Project Site</h1>
+            <p>(c) Audric 2018</p>
+        </div>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Projects
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Latest Updates</a>
+                            <a class="dropdown-item" href="#">All Project</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dictionary
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Categories</a>
+                            <a class="dropdown-item" href="dictionary_home.html">Show All</a>
+                            <a class="dropdown-item" href="dictionary_add_entry.html">Add Entry</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Search</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="row py-3 offset-md-2 col-md-8">
+            <form id="search-bar" class="search-form col-8 col-sm-8 col-md-8 col-lg-9">
+                <input type="text" class="search" placeholder="Search words, meaning or tags">
+            </form>
+        </div>
+
+        <div class="offset-md-2 col-md-8 flashcardDiv">
+            <h2 id="flashcardWord" class="flashcard">Placeholder</h2>
+        </div>
+
+        <script>
+            var entries = [];
+            var database = firebase.database().ref('tests');
+            loadDatabase();
+
+            function loadDatabase()
+            {
+                entries = [];
+                database.once('value', snapshot =>
+                {
+                    if(snapshot.exists())
+                    {
+                        snapshot.forEach(data => {entries.push(data.val())});
+                        displayWord(entries);
+                    }
+                });
+            }
+
+            let wordIndex = 0;
+            const flashcard = document.querySelector('.flashcard');
+            function displayWord(wordList)
+            {
+                word = `<h2 id="flashcardWord" class="flashcard">${wordList[wordIndex].Word}</h2>`
+                flashcard.innerHTML = word;
+            }
+
+            function nexWord(e)
+            {
+                if (e.keyCode == 39)
+                {
+                    wordIndex++;
+                    displayWord(entries);
+                }
+                else if (e.keyCode == 37)
+                {
+                    wordIndex--;
+                    displayWord(entries);
+                }
+                else if (e.keyCode == 38 || e.keyCode == 40)
+                {
+                    displayMeaning(entries);
+                }
+            }
+
+            function displayMeaning(wordList)
+            {
+                word = `<h2 id="flashcardWord" class="flashcard">${wordList[wordIndex].Meaning}</h2>`
+                flashcard.innerHTML = word;
+            }
+            window.addEventListener('keydown', nexWord);
+
+
+
+
+            function writeTable(displayList)
+            {
+                var count = displayList.length;
+                var content = '';
+                for (var entry = 0; entry < count; entry++)
+                {
+                    content += `<tr>
+                                <td>${displayList[entry].Date}</td>
+                                <td>${displayList[entry].Word}</td>
+                                <td>${displayList[entry].Meaning}</td>
+                                <td>${displayList[entry].Tags}</td>
+                                </tr>`;
+                }
+                suggestions.innerHTML = content;
+            }
+
+            function wordMatch(wordToMatch, entries)
+            {
+                return entries.filter(entry =>
+                {
+                    const regex = new RegExp(wordToMatch, 'gi');
+                    return entry.Word.match(regex) || entry.Meaning.match(regex) || entry.Tags.match(regex);
+                });
+            }
+
+            function displayMatches()
+            {
+                var asd = wordMatch(this.value, entries);
+                writeTable(asd)
+            }
+            const searchInput = document.querySelector('.search');
+            const suggestions = document.querySelector('.testClass');
+
+            searchInput.addEventListener('change', displayMatches);
+            searchInput.addEventListener('keyup', displayMatches);
+
+        </script>
+    </body>
+</html>

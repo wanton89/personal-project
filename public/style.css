@@ -116,3 +116,13 @@ input.search {
   background-color: #33334d; /* Green */
   color: white;
 }
+
+.flashcard {
+    text-align: center;
+    margin: 30px;
+    font-size: 100px;
+}
+
+.flashcardDiv {
+    background-color: #BADA55
+}
