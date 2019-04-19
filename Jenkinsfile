@@ -13,13 +13,15 @@ pipeline {
       steps {
         retry(2) {
             sh '''
-                #!/bin/sh
-                echo hello > new.log
-                cat test.log
-                if [ $? -ne 0 ]; then
-                  echo retry > test.log
-                  exit 1;
-                fi
+            test_file="test.log"
+
+            if [ -f $test_file ]; then
+                exit 0
+            else
+                touch $test_file
+                echo "create ${test_file}"
+                exit 1
+            fi
                 '''
           }
         }
