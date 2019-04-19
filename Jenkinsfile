@@ -11,7 +11,7 @@ pipeline {
     }
     stage('NEW TEST') {
       steps {
-        retry(2) {
+        retry(0) {
             sh '''
             test_file="test.log"
 
@@ -24,6 +24,12 @@ pipeline {
             fi
                 '''
           }
+        }
+      }
+
+      stage('Another test') {
+        steps {
+            echo 'PASS!'
         }
       }
     }
