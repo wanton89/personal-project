@@ -6,5 +6,13 @@ pipeline {
         echo 'build'
       }
     }
+    stage('Test') {
+      steps {   
+        sh '''
+          echo hello > test.log
+          cat test.log
+          '''
+      }
+    }
   }
 }
