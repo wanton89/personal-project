@@ -37,7 +37,7 @@ pipeline {
   post {
     always {
       archiveArtifacts artifacts: '*log'
-      wsCleanup()
+      cleanWs()
     }
   }
 }
