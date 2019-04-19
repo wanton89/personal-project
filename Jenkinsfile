@@ -11,7 +11,7 @@ pipeline {
     }
     stage('NEW TEST') {
       steps {
-        retry(0) {
+        retry(2) {
             sh '''
             test_file="test.log"
 
@@ -37,6 +37,7 @@ pipeline {
   post {
     always {
       archiveArtifacts artifacts: '*log'
+      wsCleanup()
     }
   }
 }
