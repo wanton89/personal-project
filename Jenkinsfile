@@ -9,7 +9,7 @@ pipeline {
             stage('Build 1') {
                 steps {
                     echo 'build 1'
-                    build job: 'TEST_1'
+                    build job: 'TEST_1' wait:true
                 }
             }
 
