@@ -5,21 +5,20 @@ pipeline {
 
   stages {
     stage('Build') {
-        parallel {
-            stages('Build parallel') {
+        stages('Build parallel') {
+            parallel {
                 stage('Build 1') {
                     steps {
                         echo 'build 1'
                     }
                 }
-            }
-            stages('Build parallel too') {
                 stage('Build 2') {
                     steps {
                         echo 'build 2'
                     }
                 }
             }
+
         }
     }
     stage('NEW TEST') {
