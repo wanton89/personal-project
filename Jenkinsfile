@@ -5,9 +5,16 @@ pipeline {
 
   stages {
     stage('Build') {
-      steps {
-        echo 'build'
-      }
+        stages('Build 1') {
+            steps {
+                echo 'build 1'
+            }
+        }
+        stages('Build 2') {
+            steps {
+                echo 'build 2'
+            }
+        }
     }
     stage('NEW TEST') {
       steps {
