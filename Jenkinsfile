@@ -33,7 +33,19 @@ pipeline {
     }
     stage('NEW TEST') {
       steps {
+            retry(0) {
+                sh '''
+                test_file="asd.log"
 
+                if [ -f $test_file ]; then
+                    exit 0
+                else
+                    touch $test_file
+                    echo "create ${test_file}"
+                    exit 1
+                fi
+                '''
+            }
         }
       }
 
