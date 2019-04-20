@@ -14,7 +14,7 @@ pipeline {
             stage('Build 2') {
                 steps {
                     echo 'build 2'
-                    retry(0) {
+                    retry(2) {
                         sh '''
                         test_file="asd.log"
 
@@ -27,13 +27,14 @@ pipeline {
                         fi
                             '''
                     }
+                    cleanWs()
                 }
             }
         }
     }
     stage('NEW TEST') {
       steps {
-            retry(0) {
+            retry(2) {
                 sh '''
                 test_file="asd.log"
 
