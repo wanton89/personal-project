@@ -6,11 +6,10 @@ pipeline {
   stages {
     stage('Build') {
         parallel {
-            for (int i=0; i < 5; i++) {
-                stage('Build 1') {
-                    steps {
-                        echo 'build 1'
-                    }
+            stage('Build 1') {
+                steps {
+                    echo 'build 1'
+                    build job: 'TEST_1'
                 }
             }
 
