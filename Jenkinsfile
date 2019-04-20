@@ -1,21 +1,18 @@
-#!/usr/bin/env groovy
-
 pipeline {
   agent any
-
   stages {
     stage('Build') {
-        parallel {
-            stage('Build 1') {
-                steps {
-                    echo 'build 1'
-                }
-            }
-            stage('Build 2') {
-                steps {
-                    echo 'build 2'
-                    retry(0) {
-                        sh '''
+      parallel {
+        stage('Build 1') {
+          steps {
+            echo 'build 1'
+          }
+        }
+        stage('Build 2') {
+          steps {
+            echo 'build 2'
+            retry(count: 1) {
+              sh '''
                         test_file="asd.log"
 
                         if [ -f $test_file ]; then
@@ -26,15 +23,16 @@ pipeline {
                             exit 1
                         fi
                             '''
-                    }
-                }
             }
+
+          }
         }
+      }
     }
     stage('NEW TEST') {
       steps {
-            retry(0) {
-                sh '''
+        retry(count: 1) {
+          sh '''
                 test_file="asd.log"
 
                 if [ -f $test_file ]; then
@@ -45,21 +43,22 @@ pipeline {
                     exit 1
                 fi
                 '''
-            }
         }
-      }
 
-      stage('Another test') {
-        steps {
-            echo 'PASS!'
-        }
       }
     }
-
+    stage('Another test') {
+      steps {
+        echo 'PASS!'
+      }
+    }
+  }
   post {
     always {
-      archiveArtifacts artifacts: '*log'
+      archiveArtifacts '*log'
       cleanWs()
+
     }
+
   }
 }
