@@ -11,7 +11,7 @@ pipeline {
         stage('Build 2') {
           steps {
             echo 'build 2'
-            retry(count: 1) {
+            retry(count: 2) {
               sh '''
                         test_file="asd.log"
 
@@ -31,7 +31,7 @@ pipeline {
     }
     stage('NEW TEST') {
       steps {
-        retry(count: 1) {
+        retry(count: 2) {
           sh '''
                 test_file="asd.log"
 
