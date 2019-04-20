@@ -12,6 +12,8 @@ pipeline {
                         echo 'build 1'
                     }
                 }
+            }
+            stages('Build parallel too') {
                 stage('Build 2') {
                     steps {
                         echo 'build 2'
