@@ -8,13 +8,14 @@ pipeline {
         parallel {
             stage('Build 1') {
                 steps {
-                    script {
-                        echo 'build 1'
-                        for (int i = 0; i < 5; i++) {
-                            build job: 'TEST_1', wait:true
+                    retry(2) {
+                        script {
+                            echo 'build 1'
+                            for (int i = 0; i < 2; i++) {
+                                build job: 'TEST_1', wait:true
+                            }
                         }
                     }
-
                 }
             }
 
