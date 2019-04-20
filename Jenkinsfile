@@ -14,25 +14,26 @@ pipeline {
             stage('Build 2') {
                 steps {
                     echo 'build 2'
+                    retry(0) {
+                        sh '''
+                        test_file="asd.log"
+
+                        if [ -f $test_file ]; then
+                            exit 0
+                        else
+                            touch $test_file
+                            echo "create ${test_file}"
+                            exit 1
+                        fi
+                            '''
+                    }
                 }
             }
         }
     }
     stage('NEW TEST') {
       steps {
-        retry(2) {
-            sh '''
-            test_file="test.log"
 
-            if [ -f $test_file ]; then
-                exit 0
-            else
-                touch $test_file
-                echo "create ${test_file}"
-                exit 1
-            fi
-                '''
-          }
         }
       }
 
