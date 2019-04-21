@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  gather_facts: yes
+  vars_prompt:
+  - name: giveName
+    prompt: "Please provide your name"
+    private: no
+    failed_when: giveName is undefined
+  tasks:
+  - name: 'echo'
+    git_revert:
+      commit_id: "928cf07c6ce443229f4eba5c1139e86cf869a207"
+      repo: "/home/audric/Documents/test-git"
+    register: result
+  - debug:
+      msg: "{{ result }}"
